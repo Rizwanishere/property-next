@@ -1,6 +1,10 @@
+import updateProperty from "@/app/actions/updateProperty";
+
 const PropertyEditForm = ({ property }) => {
+  const updatePropertyById = updateProperty.bind(null, property._id);
+
   return (
-    <form>
+    <form action={updatePropertyById}>
       <h2 className="text-3xl text-center font-semibold mb-6">Edit Property</h2>
 
       <div className="mb-4">
@@ -368,7 +372,7 @@ const PropertyEditForm = ({ property }) => {
         <input
           type="text"
           id="seller_name"
-          name="seller_info.name."
+          name="seller_info.name"
           className="border rounded w-full py-2 px-3"
           placeholder="Name"
           defaultValue={property.seller_info.name}
