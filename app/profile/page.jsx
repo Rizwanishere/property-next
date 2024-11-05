@@ -3,6 +3,7 @@ import connectDB from "@/config/database";
 import Property from "@/models/Property";
 import { getSessionUser } from "@/utils/getSessionUser";
 import profileDefault from "@/assets/images/profile.png";
+import ProfileProperties from "@/components/ProfileProperties";
 
 const ProfilePage = async () => {
   await connectDB();
@@ -12,88 +13,44 @@ const ProfilePage = async () => {
   if (!userId) {
     throw new Error("User ID is required");
   }
+
+  const properties = await Property.find({ owner: userId }).lean();
+  console.log(properties);
+
   return (
-    <section class="bg-blue-50">
-      <div class="container m-auto py-24">
-        <div class="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
-          <h1 class="text-3xl font-bold mb-4">Your Profile</h1>
-          <div class="flex flex-col md:flex-row">
-            <div class="md:w-1/4 mx-20 mt-10">
-              <div class="mb-4">
+    <section className="bg-blue-50">
+      <div className="container m-auto py-24">
+        <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
+          <h1 className="text-3xl font-bold mb-4">Your Profile</h1>
+          <div className="flex flex-col md:flex-row">
+            <div className="md:w-1/4 mx-20 mt-10">
+              <div className="mb-4">
                 <Image
-                  class="h-32 w-32 md:h-48 md:w-48 rounded-full mx-auto md:mx-0"
+                  className="h-32 w-32 md:h-48 md:w-48 rounded-full mx-auto md:mx-0"
                   src={sessionUser.user.image || profileDefault}
                   width={200}
                   height={200}
                   alt="User"
                 />
               </div>
-              <h2 class="text-2xl mb-4">
-                <span class="font-bold block">Name: </span>{" "}
+              <h2 className="text-2xl mb-4">
+                <span className="font-bold block">Name: </span>{" "}
                 {sessionUser.user.name}
               </h2>
-              <h2 class="text-2xl">
-                <span class="font-bold block">Email: </span>{" "}
+              <h2 className="text-2xl">
+                <span className="font-bold block">Email: </span>{" "}
                 {sessionUser.user.email}
               </h2>
             </div>
 
-            <div class="md:w-3/4 md:pl-4">
-              <h2 class="text-xl font-semibold mb-4">Your Listings</h2>
-              <div class="mb-10">
-                <a href="/property.html">
-                  <img
-                    class="h-32 w-full rounded-md object-cover"
-                    src="/images/properties/a1.jpg"
-                    alt="Property 1"
-                  />
-                </a>
-                <div class="mt-2">
-                  <p class="text-lg font-semibold">Property Title 1</p>
-                  <p class="text-gray-600">Address: 123 Main St</p>
-                </div>
-                <div class="mt-2">
-                  <a
-                    href="/add-property.html"
-                    class="bg-blue-500 text-white px-3 py-3 rounded-md mr-2 hover:bg-blue-600"
-                  >
-                    Edit
-                  </a>
-                  <button
-                    class="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
-                    type="button"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-              <div class="mb-10">
-                <a href="/property.html">
-                  <img
-                    class="h-32 w-full rounded-md object-cover"
-                    src="/images/properties/b1.jpg"
-                    alt="Property 2"
-                  />
-                </a>
-                <div class="mt-2">
-                  <p class="text-lg font-semibold">Property Title 2</p>
-                  <p class="text-gray-600">Address: 456 Elm St</p>
-                </div>
-                <div class="mt-2">
-                  <a
-                    href="/add-property.html"
-                    class="bg-blue-500 text-white px-3 py-3 rounded-md mr-2 hover:bg-blue-600"
-                  >
-                    Edit
-                  </a>
-                  <button
-                    class="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
-                    type="button"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
+            <div className="md:w-3/4 md:pl-4">
+              <h2 className="text-xl font-semibold mb-4">Your Listings</h2>
+
+              {properties.length === 0 ? (
+                <p>You have no property listings</p>
+              ) : (
+                <ProfileProperties properties={properties} />
+              )}
             </div>
           </div>
         </div>
