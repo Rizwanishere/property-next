@@ -65,16 +65,20 @@ This application is designed for:
 Create a `.env.local` file in the root of the project and add the following environment variables. Obtain the necessary credentials from your MongoDB, NextAuth, and Cloudinary setups.
 
 ```env
-MONGODB_URI=your_mongodb_connection_string
-NEXTAUTH_URL=http://localhost:3000 # Or your deployment URL
-NEXTAUTH_SECRET=your_super_secret_nextauth_key # Generate a strong secret
-GOOGLE_CLIENT_ID=your_google_oauth_client_id
-GOOGLE_CLIENT_SECRET=your_google_oauth_client_secret
+MONGODB_URI=your_mongodb_uri
+NEXT_PUBLIC_DOMAIN=http://localhost:3000
+NEXT_PUBLIC_API_DOMAIN=http://localhost:3000/api
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_URL_INTERNAL=http://localhost:3000
+NEXTAUTH_SECRET=your_nextauth_secret
 CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
 CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_API_SECRET=your_cloudinary_api_secret
-NEXT_PUBLIC_MAPBOX_TOKEN=your_mapbox_public_token
-NEXT_PUBLIC_GOOGLE_GEOCODING_API_KEY=your_google_geocode_key
+NEXT_PUBLIC_MAPBOX_TOKEN=your_mapbox_token
+NEXT_PUBLIC_GOOGLE_GEOCODING_API_KEY=your_google_geocoding_api_key
+
 ```
 
 **Note:**
