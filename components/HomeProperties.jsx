@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import PropertyCard from "./PropertyCard";
 import Link from "next/link";
 import connectDB from "@/config/database";
